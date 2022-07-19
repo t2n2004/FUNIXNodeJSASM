@@ -1,17 +1,22 @@
 {
-  "name": "lab01.1",
+  "name": "nodejs-complete-guide",
   "version": "1.0.0",
-  "description": "",
-  "main": "first-app.js",
+  "description": "Complete Nodejs Guide",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/t2n2004/FUNIXNodeJSASM.git"
   },
-  "author": "",
+  "author": "t2n",
   "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  },
   "bugs": {
     "url": "https://github.com/t2n2004/FUNIXNodeJSASM/issues"
   },
