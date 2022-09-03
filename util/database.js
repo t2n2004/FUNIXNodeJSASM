@@ -5,15 +5,15 @@ let _db;
 
 const mongoConnect = callback => {
   MongoClient.connect('mongodb://127.0.0.1:27017/test')
-  .then(client => {
-    console.log('Connected!');
-    _db = client.db();
-    callback();
-  })
-  .catch(err => { 
-    console.log(err);
-    throw err;
-  });
+    .then(client => {
+      console.log('Connected!');
+      _db = client.db();
+      callback();
+    })
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
 };
 
 const getDb = () => {
@@ -22,7 +22,6 @@ const getDb = () => {
   }
   throw 'No database found!';
 };
-
 
 exports.mongoConnect = mongoConnect;
 exports.getDb = getDb;
