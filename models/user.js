@@ -17,9 +17,28 @@ class User {
   }
 
   addToCart(product) {
+    const CartProductIndex = this.cart.items.findIndex(cp => {
+      return cp.productId.toString() === product._id.toString();
+    });
+
+    let newQuantity = 1;
+    const updatedCartItems = [...this.cart.items];
+
+    if (CartProductIndex >= 0) {
+      newQuantity =  this.cart.items[CartProductIndex].quantity + 1;
+      updatedCartItems[CartProductIndex].quantity = newQuantity;
+    } else {
+      updatedCartItems.push({ 
+        productId: new ObjectId(product._id), 
+        quantity: newQuantity 
+      });
+    }
+
     const updatedCart = { 
-      items: [{ productId: new ObjectId(product._id), quantity: 1 }]
+      items: updatedCartItems,
     };
+
+
     const db = getDb();
     return db
       .collection('users')
