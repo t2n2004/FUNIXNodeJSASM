@@ -27,13 +27,13 @@ exports.postAddProduct = (req, res, next) => {
       editing: false,
       hasError: true,
       product: {
-        title: title,
-        price: price,
-        description: description
+          title: title,
+          price: price,
+          description: description
       },
       errorMessage: 'Attached file is not an image.',
       validationErrors: []
-    });
+  });
   }
   const errors = validationResult(req);
 
