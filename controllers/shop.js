@@ -174,7 +174,7 @@ exports.getInvoice = (req, res, next) => {
       pdfDoc.pipe(fs.createWriteStream(invoicePath));
       pdfDoc.pipe(res);
 
-      pdfDoc.fontSize(26).text('Invoice', {
+      pdfDoc.fontSize(36).text('Invoice', {
         underline: true
       });
       pdfDoc.text('-----------------------');
@@ -192,7 +192,7 @@ exports.getInvoice = (req, res, next) => {
               prod.product.price
           );
       });
-      pdfDoc.text('---');
+      pdfDoc.text('-----------------------');
       pdfDoc.fontSize(20).text('Total Price: $' + totalPrice);
 
       pdfDoc.end();
