@@ -1,0 +1,18 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<body>
+    <%- include('../includes/navigations.ejs') %>
+
+    <% if (timeLogs.length == 0) { %>
+        <p>No time logs.</p>
+    <%} else { %>
+        <ul>
+            <% for (let log of timeLogs) { %>
+                <li><%= log.startedAt %> - <%= log.endedAt %></li>
+            <% } %>
+        </ul>
+    <% } %>
+</body>
+
+<%- include('../includes/end.ejs') %>

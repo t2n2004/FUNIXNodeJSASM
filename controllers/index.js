@@ -1,15 +1,19 @@
-const Staff = require('../../models/staff');
+const Staff = require('../models/staff');
+const TimeLog = require('../models/time-log');
 
-exports.getStaffs = (req, res, next) => {
-    Staff.find()
-        .then(staffs => {
-            res.render('admin/staffs', {
-                staffs: staffs,
-                pageTitle: 'Staffs',
-                path: '/'
-            });
-        })
-        .catch(err => {
-            console.log(err);
+exports.getIndex = async (req, res, next) => {
+    let currentTimeLog = null;
+
+    if (res.locals.staff) {
+        currentTimeLog = await TimeLog.findOne({
+            staffId: res.locals.staff._id,
+            endedAt: null,
         });
+    }
+
+    res.render('index', {
+        pageTitle: 'Home',
+        path: '/',
+        currentTimeLog,
+    });
 };

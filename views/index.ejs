@@ -1,0 +1,21 @@
+<%- include('includes/head.ejs') %>
+</head>
+
+<body>
+    <%- include('./includes/navigations.ejs') %>
+    <h1>Hello <%= staff.name %>!</h1>
+
+    <% if (currentTimeLog) { %>
+        <form action="/time-log/end" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit">Ket thuc</button>
+        </form>
+    <%} else { %>
+        <form action="/time-log/start" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit">Bat dau</button>
+        </form>
+    <% } %>
+</body>
+
+<%- include('includes/end.ejs') %>

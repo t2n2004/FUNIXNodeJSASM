@@ -14,6 +14,8 @@ const Staff = require('./models/staff');
 const User = require('./models/user');
 
 const adminRoutes = require('./routes/admin');
+const timeLogRoutes = require('./routes/time-log');
+const indexRoutes = require('./routes/index');
 const authRoutes = require('./routes/auth');
 const errorController = require('./controllers/error');
 
@@ -38,12 +40,19 @@ app.use(
         store: sessionStore
     })
 );
+
 app.use(csrfProtection);
 app.use(flash());
 
-app.use((req, res, next) => {
-    res.locals.isAuthenticated = req.session.isLoggedIn;
+app.use(async (req, res, next) => {
     res.locals.csrfToken = req.csrfToken();
+    res.locals.isAuthenticated = req.session.isLoggedIn;
+    res.locals.user = req.session.user;
+
+    if (res.locals.user && res.locals.user.staffId) {
+        res.locals.staff = await Staff.findOne(res.locals.user.staffId);
+    }
+
     next();
 });
 
@@ -66,6 +75,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/admin', adminRoutes);
+app.use('/time-log', timeLogRoutes);
+app.use('/', indexRoutes);
 app.use(authRoutes);
 
 app.use('/forbidden', errorController.get403);
