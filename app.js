@@ -68,7 +68,7 @@ app.use((req, res, next) => {
 app.use('/admin', adminRoutes);
 app.use(authRoutes);
 
-app.use(errorController.get403);
+app.use('/forbidden', errorController.get403);
 app.use(errorController.get404);
 
 mongoose

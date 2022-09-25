@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
     email: {
         type: String,
         required: true
@@ -21,7 +17,6 @@ const userSchema = new Schema({
     staffId: {
         type: Schema.Types.ObjectId,
         ref: 'Staff',
-        required: true
     },
 });
 
