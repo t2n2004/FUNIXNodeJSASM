@@ -10,10 +10,17 @@ exports.list = async (req, res, next) => {
         staffId: res.locals.staff._id,
     })
 
+    let total = 0;
+    timeLogs.forEach((log) => {
+        const endedAt = log.endedAt ? log.endedAt.getTime() : Date.now();
+        total += endedAt - log.startedAt.getTime();
+    });
+
     res.render('time-log/list', {
         pageTitle: 'Time Log',
         path: '/time-log',
         timeLogs,
+        total,
     });
 };
 
