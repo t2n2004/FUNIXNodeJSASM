@@ -7,15 +7,13 @@ const checkLogin = (req, res, next) => {
 }
 
 const checkAdmin = (req, res, next) => {
-    if (!req.session.user) {
-        return res.redirect('/login');
-    }
+    checkLogin(req, res, () => {
+        if (!req.session.user.admin) {
+            return res.redirect('/forbidden');
+        }
 
-    if (!req.session.user.admin) {
-        return res.redirect('/403');
-    }
-
-    next();
+        next();
+    });
 }
 
 module.exports = {
