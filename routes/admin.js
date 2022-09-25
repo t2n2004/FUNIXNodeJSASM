@@ -4,6 +4,6 @@ const auth = require('../middlewares/auth')
 
 const staffsController = require('../controllers/admin/staffs');
 
-router.get('/staffs', staffsController.getStaffs);
+router.get('/staffs', auth.checkLogin, staffsController.getStaffs);
 
 module.exports = router;

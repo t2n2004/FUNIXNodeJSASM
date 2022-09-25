@@ -46,6 +46,7 @@ exports.getSignup = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
+    const redirectUrl = req.query.redirectUrl;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -84,7 +85,7 @@ exports.postLogin = (req, res, next) => {
                         req.session.user = user;
                         return req.session.save(err => {
                             console.log(err);
-                            res.redirect('/');
+                            res.redirect(redirectUrl || '/');
                         });
                     }
                     return res.status(422).render('auth/login', {
