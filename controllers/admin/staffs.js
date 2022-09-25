@@ -6,7 +6,7 @@ exports.getStaffs = (req, res, next) => {
             res.render('admin/staffs', {
                 staffs: staffs,
                 pageTitle: 'Staffs',
-                path: '/'
+                path: '/admin/staffs'
             });
         })
         .catch(err => {
