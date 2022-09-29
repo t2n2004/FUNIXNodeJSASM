@@ -83,10 +83,10 @@ app.use('/forbidden', errorController.get403);
 app.use(errorController.get404);
 
 mongoose
-    .connect(MONGODB_URI)
-    .then(result => {
-        app.listen(3000);
-    })
-    .catch(err => {
-        console.log(err);
-    });
+  .connect(MONGODB_URI)
+  .then(result => {
+    app.listen(3000);
+  })
+  .catch(err => {
+    console.log(err);
+  });
