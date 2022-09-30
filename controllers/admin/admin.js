@@ -1,5 +1,12 @@
 const Staff = require('../../models/staff');
-//const TimeLog = require('../models/time-log');
+
+exports.getAddStaff = (req, res, next) => {
+  res.render('admin/edit-staff', {
+    pageTitle: 'Add Staff',
+    path: '/admin/add-staff',
+    editing: false
+  });
+};
 
 exports.postAddStaff = (req, res, next) => {
     const name = req.body.name;
@@ -78,6 +85,29 @@ exports.postAddStaff = (req, res, next) => {
       })
       .then(result => {
         console.log('UPDATED Staff!');
+        res.redirect('/admin/staffs');
+      })
+      .catch(err => console.log(err));
+  };
+
+  exports.getStaffs = (req, res, next) => {
+    Staff.find()
+      .then(staffs => {
+        console.log(staffs);
+        res.render('admin/staffs', {
+          staffs: staffs,
+          pageTitle: 'Admin Staffs',
+          path: '/admin/staffs'
+        });
+      })
+      .catch(err => console.log(err));
+  };
+  
+  exports.postDeleteStaff = (req, res, next) => {
+    const staffId = req.body.staffId;
+    Staff.findByIdAndRemove(staffId)
+      .then(() => {
+        console.log('DELETED STAFF');
         res.redirect('/admin/staffs');
       })
       .catch(err => console.log(err));

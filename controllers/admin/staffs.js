@@ -14,3 +14,15 @@ exports.getStaffs = (req, res, next) => {
         });
 };
 
+exports.getStaff = (req, res, next) => {
+    const staffId = req.params.staffId;
+    Staff.findById(staffId)
+      .then(staff => {
+        res.render('/staff-detail', {
+          staff: staff,
+          pageTitle: staff.name,
+          path: '/staffs'
+        });
+      })
+      .catch(err => console.log(err));
+  };

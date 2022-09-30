@@ -11,7 +11,8 @@
                     <label for="name">Name</label>
                     <input type="text" name="name" id="name">
                 </div>
-    
+                
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <button type="submit">Add Staff</button>
             </form>
         </main>

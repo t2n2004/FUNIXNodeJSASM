@@ -22,6 +22,16 @@
                                 <%= staff.department %>
                             </p>
                         </div>
+
+                        <div class="card__actions">
+                            <a href="/admin/edit-staff/<%= staff._id %>?edit=true" class="btn">Edit</a>
+                            <form action="/admin/delete-staff" method="POST">
+                                <input type="hidden" value="<%= staff._id %>" name="staffId">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button class="btn" type="submit">Delete</button>
+                            </form>
+                        </div>
+
                     </article>
                     <% } %>
             </div>

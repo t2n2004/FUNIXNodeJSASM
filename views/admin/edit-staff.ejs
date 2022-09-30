@@ -1,0 +1,48 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<body>
+    <%- include('../includes/navigations.ejs') %>
+
+    <main>
+        <form class="product-form" action="/admin/<% if (editing) { %>edit-staff<% } else { %>add-staff<% } %>" method="POST">
+            <div class="form-control">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" value="<% if (editing) { %><%= staff.name %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="doB">doB</label>
+                <input type="date" name="doB" id="doB" value="<% if (editing) { %><%= staff.doB %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="salaryScale">Salary Scale</label>
+                <input type="number" name="salaryScale" id="salaryScale" value="<% if (editing) { %><%= staff.salaryScale %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="startDate">Start Date</label>
+                <input type="date" name="startDate" id="startDate" value="<% if (editing) { %><%= staff.startDate %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="department">Department/label>
+                <input type="string" name="department" id="department" value="<% if (editing) { %><%= staff.department %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="annualLeave">Start Date</label>
+                <input type="number" name="annualLeave" id="annualLeave" value="<% if (editing) { %><%= staff.annualLeave %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="imageUrl">imageUrl</label>
+                <input type="string" name="imageUrl" id="imageUrl" value="<% if (editing) { %><%= staff.imageUrl %><% } %>">
+            </div>
+
+            <% if (editing) { %>
+                <input type="hidden" value="<%= staff._id %>" name="staffId">
+            <% } %>
+
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn" type="submit"><% if (editing) { %>Update Staff<% } else { %>Add Staff<% } %></button>
+        </form>
+    </main>
+</body>
+
+<%- include('../includes/end.ejs') %>
