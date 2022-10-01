@@ -4,6 +4,6 @@ const auth = require('../middlewares/auth')
 
 const indexController = require('../controllers/index');
 
-router.get('/', auth.checkLogin, indexController.getIndex);
+router.get('/index', auth.checkLogin, indexController.getIndex);
 
 module.exports = router;

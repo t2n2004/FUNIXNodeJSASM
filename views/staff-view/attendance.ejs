@@ -1,9 +1,8 @@
-<%- include('../includes/head.ejs') %>
+<%- include('includes/head.ejs') %>
 </head>
 
 <body>
-    <%- include('../includes/navigations.ejs') %>
-
+    <%- include('./includes/navigations.ejs') %>
     <h1>Xin chào <%= staff.name %>!</h1>
 
     <ul class="main-header__item-list">
@@ -28,6 +27,7 @@
         <% if (timeLogs.length == 0) { %>
             <p>No time logs.</p>
         <%} else { %>
+            <h1>Hello <%= staff.name %>!</h1>
             <ul>
                 <% for (let log of timeLogs) { %>
                     <li><%= log.startedAt %> - <%= log.endedAt %></li>
@@ -35,9 +35,11 @@
             </ul>
         <% } %>
     
-        <p>Total: <%= total / 1000 / 3600 %> gio</p>
+        <p>Tổng thời gian đã làm: <%= total / 1000 / 3600 %> giờ</p>
+        <p>Tổng thời gian đã làm thêm: <%= 8 - total / 1000 / 3600 %> giờ</p>
     </div>
-    
+
+
 </body>
 
-<%- include('../includes/end.ejs') %>
+<%- include('includes/end.ejs') %>

@@ -12,8 +12,8 @@ exports.getIndex = async (req, res, next) => {
     }
 
     res.render('index', {
-        pageTitle: 'Home',
-        path: '/',
+        pageTitle: 'Index',
+        path: '/index',
         currentTimeLog,
     });
 };
