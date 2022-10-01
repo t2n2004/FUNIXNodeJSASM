@@ -31,7 +31,7 @@ exports.postAddStaff = (req, res, next) => {
     staff
       .save()
       .then(result => {
-        // console.log(result);
+        console.log(result);
         console.log('Created Staff');
         res.redirect('/admin/staffs');
       })
@@ -84,6 +84,7 @@ exports.postAddStaff = (req, res, next) => {
         return staff.save();
       })
       .then(result => {
+        console.log(result);
         console.log('UPDATED Staff!');
         res.redirect('/admin/staffs');
       })

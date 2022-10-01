@@ -7,6 +7,7 @@
     <% if (timeLogs.length == 0) { %>
         <p>No time logs.</p>
     <%} else { %>
+        <h1>Hello <%= staff.name %>!</h1>
         <ul>
             <% for (let log of timeLogs) { %>
                 <li><%= log.startedAt %> - <%= log.endedAt %></li>

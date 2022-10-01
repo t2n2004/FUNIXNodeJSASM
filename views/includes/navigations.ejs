@@ -5,16 +5,16 @@
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
             <li class="main-header__item">
-                <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
+                <a class="<%= path === '/' ? 'active' : '' %>" href="/">Trang chủ</a>
             </li>
             <li class="main-header__item">
-                <a class="<%= path === '/time-log' ? 'active' : '' %>" href="/time-log">Cham cong</a>
+                <a class="<%= path === '/time-log' ? 'active' : '' %>" href="/time-log">Chấm công</a>
             </li>
             <li class="main-header__item">
-                <a class="<%= path === '/admin/staffs' ? 'active' : '' %>" href="/admin/staffs">Staffs</a>
+                <a class="<%= path === '/admin/staffs' ? 'active' : '' %>" href="/admin/staffs">Danh sách nhân viên</a>
             </li>
             <li class="main-header__item">
-                <a class="<%= path === '/admin/add-staff' ? 'active' : '' %>" href="/admin/add-staff">Add Staff
+                <a class="<%= path === '/admin/add-staff' ? 'active' : '' %>" href="/admin/add-staff">Thêm nhân viên
                 </a>
             </li>  
         </ul>
@@ -42,16 +42,16 @@
 <nav class="mobile-nav">
     <ul class="mobile-nav__item-list">
         <li class="mobile-nav__item">
-            <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
+            <a class="<%= path === '/' ? 'active' : '' %>" href="/">Trang chủ</a>
         </li>
         <li class="mobile-nav__item">
-            <a class="<%= path === '/time-log' ? 'active' : '' %>" href="/time-log">Cham cong</a>
+            <a class="<%= path === '/time-log' ? 'active' : '' %>" href="/time-log">Chấm công</a>
         </li>
         <li class="mobile-nav__item">
-            <a class="<%= path === '/admin/staffs' ? 'active' : '' %>" href="/admin/staffs">Staffs</a>
+            <a class="<%= path === '/admin/staffs' ? 'active' : '' %>" href="/admin/staffs">Danh sách nhân viên</a>
         </li>
         <li class="mobile-nav__item">
-            <a class="<%= path === '/admin/add-staff' ? 'active' : '' %>" href="/admin/add-staff">Add Staff
+            <a class="<%= path === '/admin/add-staff' ? 'active' : '' %>" href="/admin/add-staff">Thêm nhân viên
             </a>
         </li>
         <% if (!isAuthenticated) { %>
