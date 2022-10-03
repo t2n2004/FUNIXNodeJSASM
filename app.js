@@ -18,10 +18,8 @@ const timeLogRoutes = require('./routes/time-log');
 const indexRoutes = require('./routes/index');
 const authRoutes = require('./routes/auth');
 const homeRoutes = require('./routes/home');
-const attendRoutes = require('./routes/attendance');
+const staffDetailRoutes = require('./routes/staff');
 const errorController = require('./controllers/error');
-const homeController = require('./controllers/home');
-const attendController = require('./controllers/attendance');
 
 const app = express();
 const sessionStore = new MongoDBStore({
@@ -80,7 +78,7 @@ app.use((req, res, next) => {
 app.use('/admin', adminRoutes);
 app.use('/time-log', timeLogRoutes);
 app.use('/', homeRoutes);
-app.use('/attendance', attendRoutes);
+app.use('/staff', staffDetailRoutes);
 app.use('/index', indexRoutes);
 app.use(authRoutes);
 
