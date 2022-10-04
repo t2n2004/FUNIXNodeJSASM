@@ -18,7 +18,7 @@ const timeLogRoutes = require('./routes/time-log');
 const indexRoutes = require('./routes/index');
 const authRoutes = require('./routes/auth');
 const homeRoutes = require('./routes/home');
-const staffDetailRoutes = require('./routes/staff');
+const staffRoutes = require('./routes/staff');
 const errorController = require('./controllers/error');
 
 const app = express();
@@ -78,7 +78,7 @@ app.use((req, res, next) => {
 app.use('/admin', adminRoutes);
 app.use('/time-log', timeLogRoutes);
 app.use('/', homeRoutes);
-app.use('/staff', staffDetailRoutes);
+app.use('/staff', staffRoutes);
 app.use('/index', indexRoutes);
 app.use(authRoutes);
 

@@ -1,0 +1,44 @@
+<%- include('./includes/head.ejs') %>
+</head>
+
+<body>
+    <%- include('./includes/navigations.ejs') %>
+
+    <main>
+        <form class="product-form" action="/staff/edit-imageUrl" method="POST">
+            <div class="form-control">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" value="<%= staff.name %>">
+            </div>
+            <div class="form-control">
+                <label for="doB">doB</label>
+                <input type="date" name="doB" id="doB" value="<%= staff.doB  %>">
+            </div>
+            <div class="form-control">
+                <label for="salaryScale">Salary Scale</label>
+                <input type="double" name="salaryScale" id="salaryScale" value="<%= staff.salaryScale %>">
+            </div>
+            <div class="form-control">
+                <label for="startDate">Start Date</label>
+                <input type="date" name="startDate" id="startDate" value="<%= staff.startDate %>">
+            </div>
+            <div class="form-control">
+                <label for="department">Department</label>
+                <input type="string" name="department" id="department" value="<%= staff.department %>">
+            </div>
+            <div class="form-control">
+                <label for="annualLeave">Annual Leave</label>
+                <input type="number" name="annualLeave" id="annualLeave" value="<%= staff.annualLeave %>">
+            </div>
+            <div class="form-control">
+                <label for="imageUrl">imageUrl</label>
+                <input type="string" name="imageUrl" id="imageUrl" value="<%= staff.imageUrl %>">
+            </div>
+
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn" type="submit">Change Image</button>
+        </form>
+    </main>
+</body>
+
+<%- include('./includes/end.ejs') %>
