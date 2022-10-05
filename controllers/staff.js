@@ -1,4 +1,5 @@
 const Staff = require('../models/staff');
+const TimeLog = require('../models/time-log');
 
 exports.getIndex = (req, res, next) => {
   Staff.find()
@@ -47,6 +48,8 @@ exports.getStaff = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
+
+// edit imageUrl
 exports.getEditImageUrl = (req, res, next) => {
   const staffId = req.user.staffId;
   Staff.findById(staffId)
@@ -79,5 +82,69 @@ exports.postEditImageUrl = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
+
+
+// time-log
+exports.list = async (req, res, next) => {
+  if (!res.locals.staff) {
+      return res.redirect('/404');
+  }
+
+  const timeLogs = await TimeLog.find({
+      staffId: req.user.staffId,
+  })
+
+  let total = 0;
+  timeLogs.forEach((log) => {
+      const endedAt = log.endedAt ? log.endedAt.getTime() : Date.now();
+      total += endedAt - log.startedAt.getTime();
+  });
+
+  res.render('time-log/list', {
+      pageTitle: 'Time Log',
+      path: 'staff/time-log',
+      timeLogs,
+      total,
+  });
+};
+
+
+
+exports.start = async (req, res, next) => {
+  if (!res.locals.staff) {
+      return res.status(400).json({ message: 'Bad request' });
+  }
+
+  const timeLog = new TimeLog({
+      staffId: req.user.staffId,
+  });
+
+  try {
+      await timeLog.save();
+      res.redirect('/staff/attendance');
+  } catch (err) {
+      console.log(err);
+  }
+};
+
+
+
+exports.end = async (req, res, next) => {
+  if (!res.locals.staff) {
+      return res.status(400).json({ message: 'Bad request' });
+  }
+
+  const timeLog = await TimeLog.findOne({ 
+      staffId: req.user.staffId,
+      endedAt: null
+  });
+
+  if (!timeLog) {
+      return res.redirect('/404')
+  }
+
+  await timeLog.end();
+  res.redirect('/staff/attendance');
+};
 
 
