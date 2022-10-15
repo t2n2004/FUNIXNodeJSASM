@@ -8,31 +8,31 @@
         <form class="product-form" action="/staff/edit-imageUrl" method="POST">
             <div class="form-control">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" value="<%= staff.name %>">
+                <input type="text" name="name" id="name" value="<%= staff.name %>" disabled>
             </div>
             <div class="form-control">
                 <label for="doB">doB</label>
-                <input type="date" name="doB" id="doB" value="<%= staff.doB  %>">
+                <input type="date" name="doB" id="doB" value="moment(<%= staff.doB  %>).format('h:mm a')" disabled>
             </div>
             <div class="form-control">
                 <label for="salaryScale">Salary Scale</label>
-                <input type="double" name="salaryScale" id="salaryScale" value="<%= staff.salaryScale %>">
+                <input type="double" name="salaryScale" id="salaryScale" value="<%= staff.salaryScale %>" disabled>
             </div>
             <div class="form-control">
                 <label for="startDate">Start Date</label>
-                <input type="date" name="startDate" id="startDate" value="<%= staff.startDate %>">
+                <input type="date" name="startDate" id="startDate" value="moment(<%= staff.startDate %>).format('h:mm a')" disabled>
             </div>
             <div class="form-control">
                 <label for="department">Department</label>
-                <input type="string" name="department" id="department" value="<%= staff.department %>">
+                <input type="string" name="department" id="department" value="<%= staff.department %>" disabled>
             </div>
             <div class="form-control">
                 <label for="annualLeave">Annual Leave</label>
-                <input type="number" name="annualLeave" id="annualLeave" value="<%= staff.annualLeave %>">
+                <input type="number" name="annualLeave" id="annualLeave" value="<%= staff.annualLeave %>" disabled>
             </div>
             <div class="form-control">
                 <label for="imageUrl">imageUrl</label>
-                <input type="string" name="imageUrl" id="imageUrl" value="<%= staff.imageUrl %>">
+                <input type="string" name="imageUrl" id="imageUrl" value="<%= staff.imageUrl %>" >
             </div>
 
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">

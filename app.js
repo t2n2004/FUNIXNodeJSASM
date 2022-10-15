@@ -83,7 +83,7 @@ app.use('/', homeRoutes);
 app.use('/staff', staffRoutes);
 app.use('/index', indexRoutes);
 app.use(authRoutes);
-app.use('/annual-leave', annualLeaveRoutes);
+app.use('/staff/annual-leave', annualLeaveRoutes);
 
 app.use('/forbidden', errorController.get403);
 app.use(errorController.get404);

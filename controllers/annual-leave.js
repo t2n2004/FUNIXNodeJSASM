@@ -8,7 +8,7 @@ exports.index = async (req, res, next) => {
       .then(staff => {
         res.render('annual-leave', {
         pageTitle: 'Annual Leave',
-        path: '/annual-leave',
+        path: 'staff/annual-leave',
         staff: staff
         })
       });
@@ -25,6 +25,6 @@ exports.postLeave = async (req, res, next) => {
 
     await annualLeave.save();
     console.log('Annual Leave Summited!');
-  res.redirect('/annual-leave');
+  res.redirect('/staff/annual-leave');
 };
 
