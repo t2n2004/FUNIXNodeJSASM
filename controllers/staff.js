@@ -51,25 +51,3 @@ exports.postEditImageUrl = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
-
-
-exports.end = async (req, res, next) => {
-  if (!res.locals.staff) {
-      return res.status(400).json({ message: 'Bad request' });
-  }
-
-  const timeLog = await TimeLog.findOne({ 
-      staffId: req.user.staffId,
-      endedAt: null
-  });
-
-  if (!timeLog) {
-      return res.redirect('/404')
-  }
-
-  await timeLog.end();
-  res.redirect('/staff/attendance');
-};
-
-
-//annualLeave

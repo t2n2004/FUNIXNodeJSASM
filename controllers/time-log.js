@@ -1,5 +1,4 @@
 const moment = require('moment');
-const Staff = require('../models/staff');
 const TimeLog = require('../models/time-log');
 const StaffService = require('../services/staff');
 
@@ -27,7 +26,7 @@ exports.postWorking = async (req, res, next) => {
     await timeLog.save();
   }
 
-  res.redirect('/time-log');
+  res.redirect('/staff/time-log');
 };
 
 exports.list = async (req, res, next) => {
@@ -41,7 +40,7 @@ exports.list = async (req, res, next) => {
 
   res.render('time-log/list', {
     pageTitle: 'Time Log History',
-    path: '/time-log/history',
+    path: 'time-log/history',
     today,
     logs: logs.map((log) => ({
       start: moment(log.startedAt).format('h:mm a'),
