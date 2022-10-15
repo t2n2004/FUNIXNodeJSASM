@@ -22,16 +22,26 @@
         <form class="product-form" action="/staff/annual-leave" method="POST">
             <div class="form-control">
                 <label for="startDate">Start Leave</label>
-                <input type="date" name="startDate" id="startDate" value="<%= staff.startDate %>">
+                <input type="datetime" name="startDate" id="startDate" value="<%= staff.startDate %>">
             </div>
             <div class="form-control">
                 <label for="startDate">End Leave</label>
-                <input type="date" name="startDate" id="startDate" value="<%= staff.startDate %>">
+                <input type="datetime" name="startDate" id="startDate" value="<%= staff.startDate %>">
             </div>
 
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button class="btn" type="submit">Apply</button>
         </form>
+
+        <div>
+            <% if (leaves.length == 0) { %>
+                <p>Take no leave!</p>
+            <%} else { %>
+                <p>Total Leave: <%= total / 1000 / 3600 %> gio</p>
+            <% } %>
+        
+            
+        </div>
 
     </article>
        

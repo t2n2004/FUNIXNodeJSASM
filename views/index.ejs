@@ -1,21 +1,59 @@
 <%- include('includes/head.ejs') %>
+<style>
+    .time-log-form {
+      max-width: 350px;
+    }
+  </style>
 </head>
 
 <body>
-    <%- include('./includes/navigations.ejs') %>
-    <h1>Hello <%= staff.name %>!</h1>
 
-    <% if (currentTimeLog) { %>
-        <form action="/time-log/end" method="POST">
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <button type="submit">Ket thuc</button>
+    <div class="px-4 py-5 my-5 text-center">
+      <h1>Timelog</h1>
+    </div>
+  
+    <div class="time-log-form container pb-5">
+      <main>
+        <form class="needs-validation" novalidate="" method="POST">
+          <div class="row g-3">
+            <div class="col-12">
+              <label for="workplace"
+                      class="form-label">Workplace</label>
+              <select class="form-select"
+                      id="workplace"
+                      name="workplace"
+                      required
+                      <%= currentTimeLog ? 'disabled' : '' %>>
+                <option value="">Choose workplace</option>
+                <option <%= currentTimeLog && currentTimeLog.workplace == 'Office' ? 'selected' : '' %>>Office</option>
+                <option <%= currentTimeLog && currentTimeLog.workplace == 'Home' ? 'selected' : '' %>>Home</option>
+                <option <%= currentTimeLog && currentTimeLog.workplace == 'Client' ? 'selected' : '' %>>Client</option>
+              </select>
+              <div class="invalid-feedback">
+                Workplace is required
+              </div>
+            </div>
+  
+            <% if (currentTimeLog) { %>
+              <div class="col-12">
+                <label for="start-time"
+                        class="form-label">Start time</label>
+                <input class="form-control"
+                        id="start-time"
+                        value="<%= currentTimeLog.startedAt %>"
+                        disabled>
+              </div>
+            <% } %>
+          </div>
+  
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button class="my-5 w-100 btn btn-primary btn-lg"
+                  type="submit"><%= currentTimeLog ? 'End' : 'Start' %></button>
         </form>
-    <%} else { %>
-        <form action="/time-log/start" method="POST">
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <button type="submit">Bat dau</button>
-        </form>
-    <% } %>
+      </main>
+    </div>
+  
+    <script src="/js/form.js"></script>
 </body>
 
 <%- include('includes/end.ejs') %>

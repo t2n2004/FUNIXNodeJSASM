@@ -1,60 +1,54 @@
+const moment = require('moment');
 const Staff = require('../models/staff');
 const TimeLog = require('../models/time-log');
+const StaffService = require('../services/staff');
+
+exports.index = async (req, res, next) => {
+  const currentTimeLog = await StaffService.getCurrentTimeLog(res.locals.staff);
+
+  res.render('time-log/index', {
+    pageTitle: 'Time Log',
+    path: 'staff/time-log',
+    currentTimeLog,
+  });
+};
+
+exports.postWorking = async (req, res, next) => {
+  const currentTimeLog = await StaffService.getCurrentTimeLog(res.locals.staff);
+
+  if (currentTimeLog) {
+    await currentTimeLog.end();
+  } else {
+    const timeLog = new TimeLog({
+      staffId: res.locals.staff._id,
+      workplace: req.body.workplace,
+    });
+
+    await timeLog.save();
+  }
+
+  res.redirect('/time-log');
+};
 
 exports.list = async (req, res, next) => {
-    if (!res.locals.staff) {
-        return res.redirect('/404');
-    }
+  const today = moment().format('dddd, MMMM Do, YYYY');
+  const logs = await StaffService.todayTimeLog(res.locals.staff);
+  let total = 0;
 
-    const timeLogs = await TimeLog.find({
-        staffId: res.locals.staff._id,
-    })
+  logs.forEach(log => {
+    total += (log.endedAt || Date.now()) - log.startedAt
+  });
 
-    let total = 0;
-    timeLogs.forEach((log) => {
-        const endedAt = log.endedAt ? log.endedAt.getTime() : Date.now();
-        total += endedAt - log.startedAt.getTime();
-    });
-
-    res.render('time-log/list', {
-        pageTitle: 'Time Log',
-        path: '/time-log',
-        timeLogs,
-        total,
-    });
+  res.render('time-log/list', {
+    pageTitle: 'Time Log History',
+    path: '/time-log/history',
+    today,
+    logs: logs.map((log) => ({
+      start: moment(log.startedAt).format('h:mm a'),
+      end: log.endedAt ? moment(log.endedAt).format('h:mm a') : null,
+      workplace: log.workplace
+    })),
+    total: Math.round(total * 100 / 1000 / 3600) / 100,
+  });
 };
 
-exports.start = async (req, res, next) => {
-    if (!res.locals.staff) {
-        return res.status(400).json({ message: 'Bad request' });
-    }
-
-    const timeLog = new TimeLog({
-        staffId: res.locals.staff._id,
-    });
-
-    try {
-        await timeLog.save();
-        res.redirect('/');
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-exports.end = async (req, res, next) => {
-    if (!res.locals.staff) {
-        return res.status(400).json({ message: 'Bad request' });
-    }
-
-    const timeLog = await TimeLog.findOne({ 
-        staffId: res.locals.staff._id,
-        endedAt: null
-    });
-
-    if (!timeLog) {
-        return res.redirect('/404')
-    }
-
-    await timeLog.end();
-    res.redirect('/');
-};

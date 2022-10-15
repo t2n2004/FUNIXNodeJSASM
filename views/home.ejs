@@ -5,29 +5,49 @@
     <%- include('./includes/navigations.ejs') %>
 
     <main>
-        <% if (staffs.length> 0) { %>
-            <div class="grid">
-                <% for (let staff of staffs) { %>
-                    <article class="card product-item">
-                        <header class="card__header">
-                            <h1 class="product__title">
-                                <%= staff.name %>
-                            </h1>
-                        </header>
-                        <div class="card__image">
-                            <img src="<%= staff.imageUrl %>" alt="<%= staff.name %>">
-                        </div>
-                        <div class="card__content">
-                            <p>
-                                <%= staff.department %>
-                            </p>
-                        </div>
-                    </article>
-                    <% } %>
-            </div>
-            <% } else { %>
-                <h1>No Staffs Found!</h1>
-                <% } %>
+        <div class="px-4 py-5 my-5 text-center">
+            <h1>Welcome <%= staff.name %></h1>
+            <p>Working status: <%= isWorking ? 'on' : 'off' %> </p>
+        </div>
+
+        <div>
+            <form class="needs-validation" novalidate="" method="POST">
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label for="workplace"
+                            class="form-label">Workplace</label>
+                    <select class="form-select"
+                            id="workplace"
+                            name="workplace"
+                            required
+                            <%= currentTimeLog ? 'disabled' : '' %>>
+                      <option value="">Choose workplace</option>
+                      <option <%= currentTimeLog && currentTimeLog.workplace == 'Office' ? 'selected' : '' %>>Office</option>
+                      <option <%= currentTimeLog && currentTimeLog.workplace == 'Home' ? 'selected' : '' %>>Home</option>
+                      <option <%= currentTimeLog && currentTimeLog.workplace == 'Client' ? 'selected' : '' %>>Client</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Workplace is required
+                    </div>
+                  </div>
+        
+                  <% if (currentTimeLog) { %>
+                    <div class="col-12">
+                      <label for="start-time"
+                              class="form-label">Start time</label>
+                      <input class="form-control"
+                              id="start-time"
+                              value="<%= currentTimeLog.startedAt %>"
+                              disabled>
+                    </div>
+                  <% } %>
+                </div>
+        
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="my-5 w-100 btn btn-primary btn-lg"
+                        type="submit"><%= currentTimeLog ? 'End' : 'Start' %></button>
+              </form>
+        </div>
     </main>
 </body>
 

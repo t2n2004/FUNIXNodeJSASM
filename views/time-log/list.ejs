@@ -4,39 +4,23 @@
 <body>
     <%- include('../includes/navigations.ejs') %>
 
-    <h1>Xin chào <%= staff.name %>!</h1>
-
-    <ul class="main-header__item-list">
-        <li class="main-header__item">
-            <form class="product-form" >
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <button class="btn" type="submit"><% if (currentTimeLog) { %>Bắt đầu<% } else { %>Kết thúc<% } %></button>
-            </form>
-        </li>
-    </ul>
-
-    <ul class="main-header__item-list">
-        <li class="main-header__item">
-            <form class="product-form" >
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <button class="btn" type="submit"><% Nghỉ phép %></button>
-            </form>
-        </li>
-    </ul>
-
-    <div>
-        <% if (timeLogs.length == 0) { %>
-            <p>No time logs.</p>
-        <%} else { %>
-            <ul>
-                <% for (let log of timeLogs) { %>
-                    <li><%= log.startedAt %> - <%= log.endedAt %></li>
-                <% } %>
+    <div class="px-4 py-5">
+        <h1 class="mb-5">Today Time Log (<%= today %>)</h1>
+    
+        <% if (logs.length > 0) { %>
+          <div class="card">
+            <ul class="list-group list-group-flush">
+              <% for( let index = 0; index < logs.length; index++ ) { %>
+                <li class="list-group-item">Start: <%= logs[index].start %>  - End: <%= logs[index].end %> - Workplace: <%= logs[index].workplace %> </li>
+              <% } %>
+              <li class="list-group-item">Total: <%= total %>h </li>
             </ul>
+          </div>
+        <% } else { %>
+          <p>No time logs today!</p>
         <% } %>
     
-        <p>Total: <%= total / 1000 / 3600 %> gio</p>
-    </div>
+      </div>
     
 </body>
 

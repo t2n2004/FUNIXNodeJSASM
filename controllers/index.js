@@ -1,19 +1,20 @@
 const Staff = require('../models/staff');
 const TimeLog = require('../models/time-log');
+const StaffService = require('../services/staff');
 
 exports.getIndex = async (req, res, next) => {
-    let currentTimeLog = null;
-
-    if (res.locals.staff) {
-        currentTimeLog = await TimeLog.findOne({
-            staffId: res.locals.staff._id,
-            endedAt: null,
-        });
-    }
-
-    res.render('index', {
-        pageTitle: 'Index',
-        path: '/index',
-        currentTimeLog,
+  if (!res.locals.user) {
+    return res.render('index', {
+      pageTitle: 'Home',
+      path: '/index',
     });
+  }
+
+  const isWorking = await StaffService.isWorking(res.locals.staff);
+
+  res.render('index', {
+    pageTitle: 'Home',
+    path: '/index',
+    isWorking: isWorking
+  });
 };
