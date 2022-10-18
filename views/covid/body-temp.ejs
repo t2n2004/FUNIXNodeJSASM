@@ -1,0 +1,50 @@
+<%- include('../includes/head.ejs') %>
+<style>
+  .time-log-form {
+    max-width: 350px;
+  }
+</style>
+</head>
+
+<body>
+  <%- include('../includes/navigations.ejs') %>
+
+  <% if (temps.length > 0) { %>
+    <div class="card">
+      <ul class="list-group list-group-flush">
+        <% for( let index = 0; index < temps.length; index++ ) { %>
+          <li class="list-group-item">Date: <%= temps[index].date %>  - Temperature: <%= temps[index].temp %> 
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  <% } else { %>
+    <p>No history!</p>
+  <% } %>
+
+
+  <div class="time-log-form container pb-5">
+    <main>
+      <form class="product-form"  method="POST">
+        <div class="form-control">
+            <label for="date">Date</label>
+            <input type="datetime-local" name="date" id="date" >
+        </div>
+        <div class="form-control">
+            <label for="temp">Temperature</label>
+            <input type="number" name="temp" id="temp" >
+        </div>
+
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button class="btn" type="submit">Add</button>
+    </form>
+
+    </main>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/form.js"></script>
+</body>
+
+<%- include('../includes/end.ejs') %>
