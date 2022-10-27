@@ -1,0 +1,40 @@
+<%- include('../includes/head.ejs') %>
+<style>
+  .time-log-form {
+    max-width: 350px;
+  }
+</style>
+</head>
+
+<body>
+  <%- include('../includes/navigations.ejs') %>
+
+  <div class="time-log-form container pb-5">
+    <main>
+      <form class="product-form" action="/staff/covid/add-covid"  method="POST">
+        <div class="form-control">
+            <label for="start">Start Date</label>
+            <input type="datetime-local" name="start" id="start" >
+        </div>
+        <div class="form-control">
+            <label for="end">End Date</label>
+            <input type="datetime-local" name="end" id="end" >
+        </div>
+
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button class="btn" type="submit">Add</button>
+    </form>
+    </main>
+  </div>
+  
+
+</main>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/form.js"></script>
+</body>
+
+<%- include('../includes/end.ejs') %>

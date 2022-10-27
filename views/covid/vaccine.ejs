@@ -9,34 +9,15 @@
 <body>
   <%- include('../includes/navigations.ejs') %>
 
-  <div class="time-log-form container pb-5">
-    <main>
-      <form class="product-form"  method="POST">
-        <div class="form-control">
-            <label for="date">Date</label>
-            <input type="datetime-local" name="date" id="date" >
-        </div>
+  <ul class="main-header__item-list">
+    <li class="main-header__item">
+      Covid Vaccine
+    </li>
+    <li class="card__actions">
+      <a href="/staff/covid/add-vaccine" class="btn">Add</a>
+    </li>
+  </ul>
 
-        <div class="form-control">
-          <select class="form-select"
-                    id="vaccine"
-                    name="vaccine"
-                    required>
-            <option value="">Choose vaccine name</option>
-            <option>AstraZeneca</option>
-            <option>Vero Cell</option>
-            <option>Pfizer</option>
-          </select>
-        </div>
-
-        
-
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <button class="btn" type="submit">Add</button>
-    </form>
-
-    </main>
-  </div>
 
   <div>
     <% if (vaccines.length > 0) { %>

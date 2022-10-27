@@ -9,40 +9,39 @@
 <body>
   <%- include('../includes/navigations.ejs') %>
 
+  <ul class="main-header__item-list">
+    <li class="main-header__item">
+      Body Temperature
+    </li>
+    <li class="card__actions">
+      <a href="/staff/covid/add-body-temperature" class="btn">Add</a>
+    </li>
+  </ul>
 
-  <div class="time-log-form container pb-5">
-    <main>
-      <form class="product-form"  method="POST">
-        <div class="form-control">
-            <label for="date">Date</label>
-            <input type="datetime-local" name="date" id="date" >
-        </div>
-        <div class="form-control">
-            <label for="temp">Temperature</label>
-            <input type="number" name="temp" id="temp" >
-        </div>
+  
 
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <button class="btn" type="submit">Add</button>
-    </form>
 
-    </main>
-  </div>
-
-  <div>
-    <% if (temps.length > 0) { %>
-      <div class="card">
-        <ul class="list-group list-group-flush">
-          <% for( let index = 0; index < temps.length; index++ ) { %>
-            <li class="list-group-item">Date: <%= temps[index].date %>  - Temperature: <%= temps[index].temp %> 
-            </li>
-          <% } %>
-        </ul>
-      </div>
+  <% if (temps.length> 0) { %>
+    <div class="grid">
+        <% for( let index = 0; index < temps.length; index++ ) { %>
+            <article class="card product-item">
+                <header class="card__header">
+                    <h1 class="product__title">
+                      <%= temps[index].date %>
+                    </h1>
+                </header>
+                <div class="card__content">
+                    <p>
+                      Temperature: <%= temps[index].temp %>
+                    </p>
+                </div>
+            </article>
+            <% } %>
+    </div>
     <% } else { %>
-      <p>No history!</p>
-    <% } %>
-  </div>
+        <h1>No history!</h1>
+  <% } %>
+</main>
 
 
 

@@ -6,15 +6,18 @@ const auth = require('../middlewares/auth')
 router.get('/',auth.checkLogin, covidController.index);
 
 router.get('/body-temperature',auth.checkLogin, covidController.getBodyTemps);
-router.post('/body-temperature',auth.checkLogin, covidController.postBodyTemp);
+router.get('/add-body-temperature',auth.checkLogin, covidController.getAddBodyTemp);
+router.post('/add-body-temperature',auth.checkLogin, covidController.postAddBodyTemp);
 
 
 
 router.get('/covid',auth.checkLogin, covidController.getCovids);
-router.post('/covid',auth.checkLogin, covidController.postCovid);
+router.get('/add-covid',auth.checkLogin, covidController.getAddCovid);
+router.post('/add-covid',auth.checkLogin, covidController.postAddCovid);
 
 
 router.get('/vaccine',auth.checkLogin, covidController.getVaccines);
-router.post('/vaccine',auth.checkLogin, covidController.postVaccine);
+router.get('/add-vaccine',auth.checkLogin, covidController.getAddVaccine);
+router.post('/add-vaccine',auth.checkLogin, covidController.postAddVaccine);
 
 module.exports = router;

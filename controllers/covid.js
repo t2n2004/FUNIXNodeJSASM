@@ -1,3 +1,4 @@
+const moment = require('moment');
 const Staff = require('../models/staff');
 const BodyTemp = require('../models/covid').bodyTemp;
 const Vaccine = require('../models/covid').vaccine;
@@ -31,8 +32,15 @@ exports.getBodyTemps = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
+exports.getAddBodyTemp = async (req, res, next) => {
+  res.render('covid/body-temp-form', {
+    pageTitle: 'Add Body Temperature',
+    path: '/staff/covid/add-body-temperature'
+  });
+};
 
-exports.postBodyTemp = async (req, res, next) => {
+
+exports.postAddBodyTemp = async (req, res, next) => {
   const bodyTemp = new BodyTemp({
     staffId: req.user.staffId,
     date: req.body.date,
@@ -41,7 +49,7 @@ exports.postBodyTemp = async (req, res, next) => {
 
   await bodyTemp.save();
   console.log('Body Temp Summited!');
-res.redirect('/staff/covid/body-temperature');
+  res.redirect('/staff/covid/body-temperature');
 };
 
 
@@ -61,8 +69,15 @@ exports.getCovids = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
+exports.getAddCovid = async (req, res, next) => {
+  res.render('covid/covid-form', {
+    pageTitle: 'Add Covid History',
+    path: '/staff/covid/add-covid'
+  });
+};
 
-exports.postCovid = async (req, res, next) => {
+
+exports.postAddCovid = async (req, res, next) => {
 
   const covid = new Covid({
     staffId: req.user.staffId,
@@ -92,8 +107,14 @@ exports.getVaccines = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
+exports.getAddVaccine = async (req, res, next) => {
+  res.render('covid/vaccine-form', {
+    pageTitle: 'Add Vaccine',
+    path: '/staff/covid/add-vaccine'
+  });
+};
 
-exports.postVaccine = async (req, res, next) => {
+exports.postAddVaccine = async (req, res, next) => {
 
   const vaccine = new Vaccine({
     staffId: req.user.staffId,

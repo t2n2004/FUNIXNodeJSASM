@@ -9,24 +9,14 @@
 <body>
   <%- include('../includes/navigations.ejs') %>
 
-  <div class="time-log-form container pb-5">
-    <main>
-      <form class="product-form"  method="POST">
-        <div class="form-control">
-            <label for="start">Start</label>
-            <input type="datetime-local" name="start" id="start" >
-        </div>
-        <div class="form-control">
-            <label for="temp">End</label>
-            <input type="datetime-local" name="end" id="end" >
-        </div>
-
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <button class="btn" type="submit">Add</button>
-    </form>
-
-    </main>
-  </div>
+  <ul class="main-header__item-list">
+    <li class="main-header__item">
+      Covid History
+    </li>
+    <li class="card__actions">
+      <a href="/staff/covid/add-covid" class="btn">Add</a>
+    </li>
+  </ul>
 
   <div>
     <% if (covids.length > 0) { %>
