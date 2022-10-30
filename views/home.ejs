@@ -10,43 +10,15 @@
             <p>Working status: <%= isWorking ? 'on' : 'off' %> </p>
         </div>
 
-        <div>
-            <form class="needs-validation" novalidate="" method="POST">
-                <div class="row g-3">
-                  <div class="col-12">
-                    <label for="workplace"
-                            class="form-label">Workplace</label>
-                    <select class="form-select"
-                            id="workplace"
-                            name="workplace"
-                            required
-                            <%= currentTimeLog ? 'disabled' : '' %>>
-                      <option value="">Choose workplace</option>
-                      <option <%= currentTimeLog && currentTimeLog.workplace == 'Office' ? 'selected' : '' %>>Office</option>
-                      <option <%= currentTimeLog && currentTimeLog.workplace == 'Home' ? 'selected' : '' %>>Home</option>
-                      <option <%= currentTimeLog && currentTimeLog.workplace == 'Client' ? 'selected' : '' %>>Client</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Workplace is required
-                    </div>
-                  </div>
-        
-                  <% if (currentTimeLog) { %>
-                    <div class="col-12">
-                      <label for="start-time"
-                              class="form-label">Start time</label>
-                      <input class="form-control"
-                              id="start-time"
-                              value="<%= currentTimeLog.startedAt %>"
-                              disabled>
-                    </div>
-                  <% } %>
-                </div>
-        
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <button class="my-5 w-100 btn btn-primary btn-lg"
-                        type="submit"><%= currentTimeLog ? 'End' : 'Start' %></button>
-              </form>
+        <ul class="main-header__item-list">
+          <li class="main-header__item">
+            <a href="/staff/annual-leave" class="btn">Annual Leave</a>
+          </li>
+          <li class="main-header__item">
+            <a href="/staff/time-log" class="btn">Time Log</a>
+          </li>
+        </ul>
+
         </div>
     </main>
 </body>

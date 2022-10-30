@@ -2,15 +2,19 @@ const moment = require('moment');
 const TimeLog = require('../models/time-log');
 const StaffService = require('../services/staff');
 
+
+
 exports.index = async (req, res, next) => {
   const currentTimeLog = await StaffService.getCurrentTimeLog(res.locals.staff);
 
   res.render('time-log/index', {
     pageTitle: 'Time Log',
-    path: 'staff/time-log',
+    path: '/staff/time-log',
     currentTimeLog,
   });
 };
+
+
 
 exports.postWorking = async (req, res, next) => {
   const currentTimeLog = await StaffService.getCurrentTimeLog(res.locals.staff);
@@ -26,8 +30,10 @@ exports.postWorking = async (req, res, next) => {
     await timeLog.save();
   }
 
-  res.redirect('/staff/time-log');
+  res.redirect('/staff/time-log/history');
 };
+
+
 
 exports.list = async (req, res, next) => {
   const today = moment().format('dddd, MMMM Do, YYYY');
@@ -40,7 +46,7 @@ exports.list = async (req, res, next) => {
 
   res.render('time-log/list', {
     pageTitle: 'Time Log History',
-    path: 'time-log/history',
+    path: '/staff/time-log/history',
     today,
     logs: logs.map((log) => ({
       start: moment(log.startedAt).format('h:mm a'),

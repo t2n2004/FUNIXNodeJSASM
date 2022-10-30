@@ -79,7 +79,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/admin', adminRoutes);
-app.use('/time-log', timeLogRoutes);
+app.use('/staff/time-log', timeLogRoutes);
 app.use('/', homeRoutes);
 app.use('/staff', staffRoutes);
 app.use('/index', indexRoutes);
