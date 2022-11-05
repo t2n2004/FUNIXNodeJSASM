@@ -64,15 +64,9 @@ const todayTimeLog = async (staff) => {
 //   }
 // };
 
-const leaves = async (staff, dateS, dateE) => {
+const leaves = async (staff) => {
   return AnnualLeave.find({
-    //staffId: staff._id,
-    startLeave: {
-      $gte: dateS
-    },
-    endLeave: {
-      $lte: dateE
-    }
+   staffId: staff._id,
   });
 };
 
@@ -82,6 +76,5 @@ module.exports = {
   startWorking,
   stopWorking,
   todayTimeLog,
-  isAlreadyLeave,
   leaves,
 };

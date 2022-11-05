@@ -11,8 +11,11 @@ const annualLeaveSchema = new Schema({
     startLeave: {
         type: Date,
     },
-    endLeave: {
-        type: Date,
+    duration: {
+        type: Number,
+    },
+    reason: {
+        type: String
     }
 });
 

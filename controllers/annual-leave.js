@@ -1,20 +1,14 @@
-
+const StaffService = require('../services/staff');
 const AnnualLeave = require('../models/annual-leave');
 const Staff = require('../models/staff');
-const StaffService = require('../services/staff');
 
 exports.index = async (req, res, next) => {
     const staffId = req.user.staffId;
-
-    const dateS = new Date(new Date().getFullYear(), 0, 1);
-    const dateE = new Date(new Date().getFullYear(), 11, 31);
-
+    const leaves = await StaffService.leaves(res.locals.staff);
     let totalLeaves = 0
 
-    const thisYearLeaves = await StaffService.leaves(res.locals.staff, dateS, dateE );
-
-    thisYearLeaves.forEach(leave => {
-      totalLeaves += Math.round((leave.endLeave - leave.startLeave)/ 1000 / 3600 / 100 * 10 )/ 10; 
+    leaves.forEach(leave => {
+      totalLeaves += Math.round(leave.duration / 8 * 10) /10; 
     });
 
 
@@ -35,7 +29,8 @@ exports.postLeave = async (req, res, next) => {
   const annualLeave = new AnnualLeave({
     staffId: res.locals.staff._id,
     startLeave: req.body.startLeave,
-    endLeave: req.body.endLeave
+    duration: req.body.duration,
+    reason: req.body.reason
   });
 
   await annualLeave.save();

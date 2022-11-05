@@ -22,11 +22,22 @@
         <form class="product-form"  method="POST">
             <div class="form-control">
                 <label for="startLeave">Start Leave</label>
-                <input type="datetime-local" name="startLeave" id="startLeave" >
+                <input type="date" name="startLeave" id="startLeave" >
             </div>
             <div class="form-control">
-                <label for="endLeave">End Leave</label>
-                <input type="datetime-local" name="endLeave" id="endLeave" >
+                <label for="duration">Duration (hours)</label>
+                <select class="form-select"
+                    id="duration"
+                    name="duration"
+                    required>
+                        <option value="">Choose option</option>
+                        <option>8</option>
+                        <option>4</option>
+                </select>
+            </div>
+            <div class="form-control">
+                <label for="reason">Reason</label>
+                <input type="text" name="reason" id="reason" >
             </div>
 
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
