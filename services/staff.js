@@ -44,10 +44,36 @@ const todayTimeLog = async (staff) => {
   });
 };
 
-// const isAlreadyLeave = async (staff, date) => AnnualLeave.findOne({
-//   staffId: staff._id,
-//   startLeave <= date <= endLeave
-// });
+const isAlreadyLeave = async (staff, date) => {
+  const alreadyLeave = AnnualLeave.find({
+    staffId: staff._id,
+    startLeave: {
+      $lte: date
+    },
+    endLeave: {
+      $gte: date
+    }
+  });
+  
+  if (!alreadyLeave) {
+    return false;
+  }
+  else {
+    return true;
+  }
+};
+
+const leaves = async (staff, dateS, dateE) => {
+  return AnnualLeave.find({
+    staffId: staff._id,
+    startLeave: {
+      $gte: dateS
+    },
+    endLeave: {
+      $lte: dateE
+    }
+  });
+};
 
 module.exports = {
   getCurrentTimeLog,
@@ -55,4 +81,6 @@ module.exports = {
   startWorking,
   stopWorking,
   todayTimeLog,
+  isAlreadyLeave,
+  leaves,
 };

@@ -15,7 +15,6 @@ const User = require('./models/user');
 
 const adminRoutes = require('./routes/admin');
 const timeLogRoutes = require('./routes/time-log');
-const indexRoutes = require('./routes/index');
 const authRoutes = require('./routes/auth');
 const homeRoutes = require('./routes/home');
 const staffRoutes = require('./routes/staff');
@@ -82,7 +81,6 @@ app.use('/admin', adminRoutes);
 app.use('/staff/time-log', timeLogRoutes);
 app.use('/', homeRoutes);
 app.use('/staff', staffRoutes);
-app.use('/index', indexRoutes);
 app.use(authRoutes);
 app.use('/staff/annual-leave', annualLeaveRoutes);
 app.use('/staff/covid', covidRoutes);
