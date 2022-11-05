@@ -12,14 +12,14 @@
             </header>
 
         <div class="card__content">
-            <p>Annual Leave: <%= staff.annualLeave %></p>
+            <p>Annual Leave: <%= staff.annualLeave %> days</p>
         </div>
 
         <div class="card__content">
-            <p>Available Annual Leave: </p>
+            <p>Available Annual Leave: <%= availableLeaves %> days</p>
         </div>
 
-        <form class="product-form" action="/annual-leave" method="POST">
+        <form class="product-form"  method="POST">
             <div class="form-control">
                 <label for="startLeave">Start Leave</label>
                 <input type="datetime-local" name="startLeave" id="startLeave" >

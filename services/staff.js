@@ -1,5 +1,6 @@
 const Staff = require('../models/staff');
 const TimeLog = require('../models/time-log');
+const AnnualLeave = require('../models/annual-leave');
 
 const getCurrentTimeLog = (staff) => TimeLog.findOne({
   staffId: staff._id,
@@ -44,28 +45,28 @@ const todayTimeLog = async (staff) => {
   });
 };
 
-const isAlreadyLeave = async (staff, date) => {
-  const alreadyLeave = AnnualLeave.find({
-    staffId: staff._id,
-    startLeave: {
-      $lte: date
-    },
-    endLeave: {
-      $gte: date
-    }
-  });
+// const isAlreadyLeave = async (staff, date) => {
+//   const alreadyLeave = AnnualLeave.find({
+//     staffId: staff._id,
+//     startLeave: {
+//       $lte: date
+//     },
+//     endLeave: {
+//       $gte: date
+//     }
+//   });
   
-  if (!alreadyLeave) {
-    return false;
-  }
-  else {
-    return true;
-  }
-};
+//   if (!alreadyLeave) {
+//     return false;
+//   }
+//   else {
+//     return true;
+//   }
+// };
 
 const leaves = async (staff, dateS, dateE) => {
   return AnnualLeave.find({
-    staffId: staff._id,
+    //staffId: staff._id,
     startLeave: {
       $gte: dateS
     },
