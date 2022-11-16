@@ -45,6 +45,27 @@ const todayTimeLog = async (staff) => {
   });
 };
 
+const timeLogOfMonth = async (staff, dateS, dateE) => {
+  return TimeLog.find({
+    staffID: staff._id,
+    startedAt: {
+      $lte: dateS,
+    },
+    endedAt: {
+      $gte: dateE,
+    }
+  });
+};
+
+const timeLogOfDay = async (staff, date) => {
+  return TimeLog.find({
+    staffID: staff._id,
+    startedAt: {
+      $lte: date,
+    }
+  });
+};
+
 // const isAlreadyLeave = async (staff, date) => {
 //   const alreadyLeave = AnnualLeave.find({
 //     staffId: staff._id,
@@ -70,6 +91,24 @@ const leaves = async (staff) => {
   });
 };
 
+const getLeaveOfDay = async (staff, date) => {
+  const leave = AnnualLeave.find({
+    staffId: staff._id,
+    startLeave: date
+  });
+  return leave.duration;
+};
+
+const getLeaveOfMonth = async (staff, dateS, dateE) => {
+  return AnnualLeave.find({
+    staffId: staff._id,
+    startLeave: {
+      gte: dateS,
+      lte: dateE,
+    }
+  });
+};
+
 module.exports = {
   getCurrentTimeLog,
   isWorking,
@@ -77,4 +116,8 @@ module.exports = {
   stopWorking,
   todayTimeLog,
   leaves,
+  timeLogOfMonth,
+  timeLogOfDay,
+  getLeaveOfDay,
+  getLeaveOfMonth,
 };

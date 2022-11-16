@@ -1,0 +1,28 @@
+<%- include('./includes/head.ejs') %>
+</head>
+
+<body>
+    <%- include('./includes/navigations.ejs') %>
+
+    <main>
+        <h1>This is List of TimeLog page</h1>
+        <div>
+            <% if (logs.length > 0) { %>
+                <div class="card">
+                  <ul class="list-group list-group-flush">
+                    <% for( let index = 0; index < logs.length; index++ ) { %>
+                      <li><%= logs[index].date %></li>
+                      <li class="list-group-item">Start: <%= logs[index].start %>  - End: <%= logs[index].end %> - Workplace: <%= logs[index].workplace %> </li>
+                    <% } %>
+                    <li class="list-group-item">Total: <%= total %>h </li>
+                  </ul>
+                </div>
+            <% } else { %>
+                <p>No time logs today!</p>
+            <% } %>
+        </div>
+       
+    </main>
+</body>
+
+<%- include('./includes/end.ejs') %>

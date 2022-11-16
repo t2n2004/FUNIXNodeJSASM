@@ -52,33 +52,3 @@ exports.list = async (req, res, next) => {
     total: Math.round(total * 10 / 1000 / 3600) / 10,
   });
 };
-
-// Màn hình Tra cứu thông tin giờ làm (của toàn bộ quá trình làm ở công ty, không theo tháng), lương tháng (MH-3)
-exports.salary = async (req, res, next) => {
-  const today = moment().format('dddd, MMMM Do, YYYY');
-  const logs = await StaffService.todayTimeLog(res.locals.staff);
-  let total = 0;
-  let notWorking = 0;
-  let overTime = 0;
-
-  logs.forEach(log => {
-    total += (log.endedAt || Date.now()) - log.startedAt;
-    if (total > 8 * 1000 * 3600) {
-      overTime += (total - 8 * 1000 * 3600); 
-    } else {
-      notWorking += (8 * 1000 * 3600 - total);
-    }
-  });
-
-  res.render('salary', {
-    pageTitle: '',
-    path: '/staff/salary',
-    today,
-    logs: logs.map((log) => ({
-      start: moment(log.startedAt).format('h:mm a'),
-      end: log.endedAt ? moment(log.endedAt).format('h:mm a') : null,
-      workplace: log.workplace
-    })),
-    total: Math.round(total * 10 / 1000 / 3600) / 10,
-  });
-};
