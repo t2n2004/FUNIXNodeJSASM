@@ -11,7 +11,7 @@
                 <input type="text" name="name" id="name" value="<%= staff.name %>" disabled>
             </div>
             <div class="form-control">
-                <label for="doB">doB</label>
+                <label for="doB">doB <%= staff.doB  %> </label>
                 <input type="date" name="doB" id="doB" value="moment(<%= staff.doB  %>).format('h:mm a')" disabled>
             </div>
             <div class="form-control">

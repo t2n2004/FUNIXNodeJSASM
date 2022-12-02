@@ -20,6 +20,7 @@ const homeRoutes = require('./routes/home');
 const staffRoutes = require('./routes/staff');
 const annualLeaveRoutes = require('./routes/annual-leave');
 const covidRoutes = require('./routes/covid');
+const salaryRoutes = require('./routes/salary');
 const errorController = require('./controllers/error');
 
 
@@ -84,6 +85,7 @@ app.use('/staff', staffRoutes);
 app.use(authRoutes);
 app.use('/staff/annual-leave', annualLeaveRoutes);
 app.use('/staff/covid', covidRoutes);
+app.use('/', salaryRoutes);
 
 app.use('/forbidden', errorController.get403);
 app.use(errorController.get404);

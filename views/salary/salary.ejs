@@ -1,28 +1,17 @@
-<%- include('./includes/head.ejs') %>
+<%- include('../includes/head.ejs') %>
 </head>
 
 <body>
-    <%- include('./includes/navigations.ejs') %>
+    <%- include('../includes/navigations.ejs') %>
 
     <main>
         <h1>This is Salary page</h1>
 
-        <form class="product-form"  method="POST">
-            <div class="form-control">
-                <label for="dateS">From Date</label>
-                <input type="date" name="dateS" id="dateS" >
-            </div>
-            <div class="form-control">
-                <label for="dateE">To Date</label>
-                <input type="date" name="dateE" id="dateE" >
-            </div>
-            
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <button class="btn" type="submit">Apply</button>
-        </form>
-
+        <div>
+            Lương tháng là: <%= salary %>
+        </div>
        
     </main>
 </body>
 
-<%- include('./includes/end.ejs') %>
+<%- include('../includes/end.ejs') %>

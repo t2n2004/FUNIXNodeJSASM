@@ -60,9 +60,7 @@ const timeLogOfMonth = async (staff, dateS, dateE) => {
 const timeLogOfDay = async (staff, date) => {
   return TimeLog.find({
     staffID: staff._id,
-    startedAt: {
-      $lte: date,
-    }
+    startedAt: date,
   });
 };
 
@@ -103,8 +101,8 @@ const getLeaveOfMonth = async (staff, dateS, dateE) => {
   return AnnualLeave.find({
     staffId: staff._id,
     startLeave: {
-      gte: dateS,
-      lte: dateE,
+      $gte: dateS,
+      $lte: dateE,
     }
   });
 };
