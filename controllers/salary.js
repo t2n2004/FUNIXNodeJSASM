@@ -4,45 +4,25 @@ const AnnualLeave = require('../models/annual-leave');
 const StaffService = require('../services/staff');
 const staff = require('../models/staff');
 
-exports.index = async (req, res, next) => {
-
-  res.render('salary/index', {
-    pageTitle: 'Input Salary Month',
-    path: '/staff/salary/index',
-  });
-
-};
-
-// exports.postInputMonth = async (req, res, next) => {
-//   const month = req.body.month;
-//   const year = req.body.year;
-//   const dateS = new Date(year, month-1, 2); // ngày đầu của tháng
-//   const dateE = new Date(year, month, 1);   // ngày cuối của tháng
-
-//   console.log(dateS, dateE, month, year);
-
-//   console.log('Month Input successfully');
-//   res.redirect('/staff/salary/list');
-
-// };
 
 exports.list = async (req, res, next) => {
-  console.log(req.body);
-  const month = req.body.month;
-  const year = req.body.year;
-  const dateS = new Date(year, month-1, 2); // ngày đầu của tháng
-  const dateE = new Date(year, month, 1);   // ngày cuối của tháng
+
+  const month = req.body.month || moment().month() + 1;
+  const year = req.body.year || moment().year();
+
+
+  const dateS = moment(new Date(year, month - 1, 1)).format('YYYY-MM-DD'); // ngày đầu của tháng
+  const dateE = moment(new Date(year, month, 0)).format('YYYY-MM-DD');   // ngày cuối của tháng
 
   let logs = await StaffService.timeLogOfMonth(res.locals.staff, dateS, dateE);
-  console.log('abc');
+
   let leaves = await StaffService.getLeaveOfMonth(res.locals.staff, dateS, dateE);
-  
+
   const data = [];
 
-  let currentDate = moment(dateS).format('YYYY-MM-DD');
-  console.log(currentDate);
+  let currentDate = dateS;
 
-  while (currentDate <= moment(dateE).format('YYYY-MM-DD')) {
+  while (currentDate <= dateE) {
     const dateData = {
       date: currentDate,
       dayLogs: [],
@@ -51,28 +31,32 @@ exports.list = async (req, res, next) => {
       overTime: 0
     };
 
-    dateData.dayLogs = logs.filter((log) => moment(log.startedAt).format('YYYY-MM-DD') == dateData.date); 
-    
-    console.log(dateData.dayLogs);
-    dateData.dayLogs.forEach((log) => {
+    const dayLogs = logs.filter((log) => moment(log.startedAt).format('YYYY-MM-DD') == dateData.date);
+    dateData.dayLogs = dayLogs.map((log) => ({
+      startedAt: moment(log.startedAt).format('h:mm a'),
+      endedAt: moment(log.endedAt).format('h:mm a'),
+      workplace: log.workplace
+    }));
+
+    dayLogs.forEach((log) => {
       dateData.working += (log.endedAt || Date.now()) - log.startedAt;
     })
 
-    off = leaves.filter((log) => log.startLeave == currentDate); 
+    off = leaves.filter((log) => log.startLeave == currentDate);
     off.forEach((log) => {
       dateData.leave += log.duration;
     });
 
     data.push(dateData);
-    currentDate = moment(currentDate).add(1, 'day');
+    currentDate = moment(currentDate).add(1, 'day').format('YYYY-MM-DD');
   }
-
-  console.log(data);
 
   res.render('salary/list', {
     pageTitle: 'TimeLog List',
     path: '/staff/salary/list',
     data: data,
+    month: month,
+    year: year
   });
 
 };
@@ -83,8 +67,8 @@ exports.salary = async (req, res, next) => {
 
   const month = req.body.month;
   const year = req.body.year;
-  const dateS = new Date(year, month-1, 2); // ngày đầu của tháng
-  const dateE = new Date(year, month, 1);   // ngày cuối của tháng
+  const dateS = new Date(year, month - 1, 1); // ngày đầu của tháng
+  const dateE = new Date(year, month, 0);   // ngày cuối của tháng
 
   let total = 0;
   let notWorking = 0;
@@ -95,22 +79,22 @@ exports.salary = async (req, res, next) => {
   let logs = await StaffService.timeLogOfMonth(res.locals.staff, dateS, dateE);
   let leaves = await StaffService.getLeaveOfMonth(res.locals.staff, dateS, dateE);
 
-   leaves.forEach(leave => {
-     daysLeaves += leave.duration;
-   });
+  leaves.forEach(leave => {
+    daysLeaves += leave.duration;
+  });
 
-   logs.forEach(log => {
-     total += (log.endedAt || Date.now()) - log.startedAt;
-     if (total + daysLeaves * 3600 > 8 * 1000 * 3600) {
-       overTime += (total + daysLeaves * 3600 - 8 * 1000 * 3600); 
-     } else {
-       notWorking += (8 * 1000 * 3600 - total - daysLeaves * 3600);
-     }
-   });
+  logs.forEach(log => {
+    total += (log.endedAt || Date.now()) - log.startedAt;
+    if (total + daysLeaves * 3600 > 8 * 1000 * 3600) {
+      overTime += (total + daysLeaves * 3600 - 8 * 1000 * 3600);
+    } else {
+      notWorking += (8 * 1000 * 3600 - total - daysLeaves * 3600);
+    }
+  });
 
-   //tính thời gian tổng, lương tổng của tháng
+  //tính thời gian tổng, lương tổng của tháng
   total = Math.round(total * 10 / 1000 / 3600) / 10;
-  notWorking = Math.round(notWorking * 10 / 1000 / 3600) /10;
+  notWorking = Math.round(notWorking * 10 / 1000 / 3600) / 10;
   overTime = Math.round(overTime * 10 / 1000 / 3600) / 10;
   // daysLeaves = Math.round(daysLeaves * 10 * 3600) /10;
   salary = res.locals.staff.salaryScale * 3000000 + (overTime - notWorking) * 200000;

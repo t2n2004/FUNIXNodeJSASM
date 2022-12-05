@@ -1,3 +1,4 @@
+const moment = require('moment');
 const Staff = require('../models/staff');
 const TimeLog = require('../models/time-log');
 const AnnualLeave = require('../models/annual-leave');
@@ -46,13 +47,14 @@ const todayTimeLog = async (staff) => {
 };
 
 const timeLogOfMonth = async (staff, dateS, dateE) => {
+  dateE = moment(dateE).add(1, 'day').format('YYYY-MM-DD');
   return TimeLog.find({
     staffID: staff._id,
     startedAt: {
-      $lte: dateS,
+      $gte: dateS,
     },
     endedAt: {
-      $gte: dateE,
+      $lte: dateE,
     }
   });
 };
