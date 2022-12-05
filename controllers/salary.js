@@ -13,20 +13,25 @@ exports.index = async (req, res, next) => {
 
 };
 
-exports.postInputMonth = async (req, res, next) => {
+// exports.postInputMonth = async (req, res, next) => {
+//   const month = req.body.month;
+//   const year = req.body.year;
+//   const dateS = new Date(year, month-1, 2); // ngày đầu của tháng
+//   const dateE = new Date(year, month, 1);   // ngày cuối của tháng
+
+//   console.log(dateS, dateE, month, year);
+
+//   console.log('Month Input successfully');
+//   res.redirect('/staff/salary/list');
+
+// };
+
+exports.list = async (req, res, next) => {
+  console.log(req.body);
   const month = req.body.month;
   const year = req.body.year;
   const dateS = new Date(year, month-1, 2); // ngày đầu của tháng
   const dateE = new Date(year, month, 1);   // ngày cuối của tháng
-
-  console.log(dateS, dateE, month, year);
-
-  console.log('Month Input successfully');
-  res.redirect('/staff/salary/list');
-
-};
-
-exports.list = async (req, res, next) => {
 
   let logs = await StaffService.timeLogOfMonth(res.locals.staff, dateS, dateE);
   console.log('abc');
@@ -46,7 +51,7 @@ exports.list = async (req, res, next) => {
       overTime: 0
     };
 
-    dateData.dayLogs = TimeLog.filter((log) => moment(log.startedAt).format('YYYY-MM-DD') == dateData.date); 
+    dateData.dayLogs = logs.filter((log) => moment(log.startedAt).format('YYYY-MM-DD') == dateData.date); 
     
     console.log(dateData.dayLogs);
     dateData.dayLogs.forEach((log) => {
@@ -75,6 +80,11 @@ exports.list = async (req, res, next) => {
 
 // lương tháng (MH-3)
 exports.salary = async (req, res, next) => {
+
+  const month = req.body.month;
+  const year = req.body.year;
+  const dateS = new Date(year, month-1, 2); // ngày đầu của tháng
+  const dateE = new Date(year, month, 1);   // ngày cuối của tháng
 
   let total = 0;
   let notWorking = 0;
