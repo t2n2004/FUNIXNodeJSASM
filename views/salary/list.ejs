@@ -16,8 +16,8 @@
                 <option value="">Choose a month</option>
                 <% for ( var i = 1 ; i <=12; i++ )
                 {
-                  var selected = ( month == i ) ? "selected" : "";
-                  %><option value="<%= i %>" <%=selected %>><%=i %></option><%
+                    var selected = ( month == i ) ? "selected" : "";
+                    %><option value="<%= i %>" <%=selected %>><%=i %></option><%
                 }
                 %>
         </select>
@@ -45,13 +45,16 @@
                     <% for (let i = 0; i < data[index].dayLogs.length; i++ ) { %>
                       <li class="list-group-item">Start: <%= data[index].dayLogs[i].startedAt %>  - End: <%= data[index].dayLogs[i].endedAt %> - Workplace: <%= data[index].dayLogs[i].workplace %> </li>
                     <% } %> 
-                    <li class="list-group-item">Total working: <%= data[index].working %>h </li>
-                    <li class="list-group-item">Total leave: <%= data[index].leave %>h </li>
-                    <li class="list-group-item">Total overTime: <%= data[index].overTime %>h </li>
                   </ul>
                 <% } else { %>
-                  <p>No time logs on this day!</p>
+                  <p>No time logs this day!</p>
                 <% } %>
+
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Total working: <%= data[index].working %>h </li>
+                  <li class="list-group-item">Total leave: <%= data[index].leave %>h </li>
+                  <li class="list-group-item">Total overTime: <%= data[index].overTime %>h </li>
+                </ul>
                       
               <% } %>
             </ul>

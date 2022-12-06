@@ -10,7 +10,6 @@ exports.list = async (req, res, next) => {
   const month = req.body.month || moment().month() + 1;
   const year = req.body.year || moment().year();
 
-
   const dateS = moment(new Date(year, month - 1, 1)).format('YYYY-MM-DD'); // ngày đầu của tháng
   const dateE = moment(new Date(year, month, 0)).format('YYYY-MM-DD');   // ngày cuối của tháng
 
@@ -27,10 +26,12 @@ exports.list = async (req, res, next) => {
       date: currentDate,
       dayLogs: [],
       working: 0,
-      off: 0,
+      leave: 0,
+      notWorking: 0,
       overTime: 0
     };
 
+    // lấy timeLog
     const dayLogs = logs.filter((log) => moment(log.startedAt).format('YYYY-MM-DD') == dateData.date);
     dateData.dayLogs = dayLogs.map((log) => ({
       startedAt: moment(log.startedAt).format('h:mm a'),
@@ -38,16 +39,32 @@ exports.list = async (req, res, next) => {
       workplace: log.workplace
     }));
 
+    // tính thời gian làm việc
+    let working = 0;
     dayLogs.forEach((log) => {
-      dateData.working += (log.endedAt || Date.now()) - log.startedAt;
-    })
+      working += (log.endedAt || Date.now()) - log.startedAt;
+    });
+    dateData.working = Math.round(working * 10 / 1000 / 3600) / 10;
 
-    off = leaves.filter((log) => log.startLeave == currentDate);
+    // tính số giờ đã nghỉ
+    const off = leaves.filter((log) => moment(log.startLeave).format('YYYY-MM-DD') == currentDate);
     off.forEach((log) => {
       dateData.leave += log.duration;
     });
 
+    //tính số giờ làm thêm
+    let overTime = (dateData.working + dateData.leave) - 8;
+    if (overTime >= 0) {
+      dateData.overTime = Math.round(overTime * 10) / 10;
+    } else {
+      dateData.notWorking = -Math.round(overTime * 10) / 10;
+    };
+
+    // push data theo ngày
     data.push(dateData);
+    //console.log(dateData);
+
+    //tăng ngày
     currentDate = moment(currentDate).add(1, 'day').format('YYYY-MM-DD');
   }
 
@@ -60,6 +77,11 @@ exports.list = async (req, res, next) => {
   });
 
 };
+
+
+
+
+
 
 
 // lương tháng (MH-3)

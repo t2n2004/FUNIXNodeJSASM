@@ -47,7 +47,7 @@ const todayTimeLog = async (staff) => {
 };
 
 const timeLogOfMonth = async (staff, dateS, dateE) => {
-  dateE = moment(dateE).add(1, 'day').format('YYYY-MM-DD');
+  dateE = moment(dateE).add(1, 'day').format('YYYY-MM-DD'); // cộng 1 ngày do moment tính từ 0h00:00
   return TimeLog.find({
     staffID: staff._id,
     startedAt: {
