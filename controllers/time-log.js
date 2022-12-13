@@ -45,7 +45,7 @@ exports.list = async (req, res, next) => {
     today,
     logs: logs.map((log) => ({
       start: moment(log.startedAt).format('h:mm a'),
-      end: log.endedAt ? moment(log.endedAt).format('h:mm a') : null,
+      end: log.endedAt ? moment(log.endedAt).format('h:mm a') : 'not yet',
       workplace: log.workplace
     })),
     total: Math.round(total * 10 / 1000 / 3600) / 10,

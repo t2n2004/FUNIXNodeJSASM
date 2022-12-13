@@ -1,3 +1,4 @@
+const moment = require('moment');
 const Staff = require('../../models/staff');
 
 exports.getAddStaff = (req, res, next) => {
@@ -10,9 +11,9 @@ exports.getAddStaff = (req, res, next) => {
 
 exports.postAddStaff = (req, res, next) => {
     const name = req.body.name;
-    const doB = req.body.doB;
+    const doB = moment(req.body.doB).format('DD-MM-YYYY');
     const salaryScale = req.body.salaryScale;
-    const startDate = req.body.startDate;
+    const startDate = moment(req.body.startDate).format('DD-MM-YYYY');
     const department = req.body.department;
     const annualLeave = req.body.annualLeave;
     const imageUrl = req.body.imageUrl;
@@ -64,9 +65,9 @@ exports.postAddStaff = (req, res, next) => {
   exports.postEditStaff = (req, res, next) => {
     const staffId = req.body.staffId;
     const updatedName = req.body.name;
-    const updatedDoB = req.body.doB;
+    const updatedDoB = moment(req.body.doB).format('DD-MM-YYYY');
     const updatedSalaryScale = req.body.salaryScale;
-    const updatedStartDate = req.body.startDate;
+    const updatedStartDate = moment(req.body.startDate).format('DD-MM-YYYY');
     const updatedDepartment = req.body.department;
     const updatedAnnualLeave = req.body.annualLeave;
     const updatedImageUrl = req.body.imageUrl;

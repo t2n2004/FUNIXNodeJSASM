@@ -7,8 +7,40 @@
     <main>
         <h1>This is Salary page</h1>
 
+        <form class="product-form" method="POST">
+            <div class="form-control">
+              <label for="month">Month</label>
+              <select class="form-select"
+                  id="month"
+                  name="month"
+                  required>
+                      <option value="">Choose a month</option>
+                      <% for ( var i = 1 ; i <=12; i++ )
+                      {
+                          var selected = ( month == i ) ? "selected" : "";
+                          %><option value="<%= i %>" <%=selected %>><%=i %></option><%
+                      }
+                      %>
+              </select>
+            </div>
+      
+            <div class="form-control">
+                <label for="year">Year</label>
+                <input type="number" name="year" id="year" value="<%= year %>">
+            </div>
+            
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn" type="submit">Apply</button>
+        </form>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Total working: <%= total %>h </li>
+            <li class="list-group-item">Total leave: <%= leave %>h </li>
+            <li class="list-group-item">Total overTime: <%= overTime %>h </li>
+            <li class="list-group-item">Total notWorking: <%= notWorking %>h </li>
+        </ul>
         <div>
-            Lương tháng là: <%= salary %>
+            TỔNG LƯƠNG THÁNG <%= month %>/<%= year %> LÀ: <%= salary %>
         </div>
        
     </main>

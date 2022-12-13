@@ -37,6 +37,13 @@ const stopWorking = async (staff) => {
   return current;
 };
 
+
+const getTimeLog = async (staff) => {
+  return TimeLog.find({
+    staffId: staff._id,
+  });
+};
+
 const todayTimeLog = async (staff) => {
   const today = new Date().toISOString().slice(0, 10);
   return TimeLog.find({
@@ -48,15 +55,20 @@ const todayTimeLog = async (staff) => {
 
 const timeLogOfMonth = async (staff, dateS, dateE) => {
   dateE = moment(dateE).add(1, 'day').format('YYYY-MM-DD'); // cộng 1 ngày do moment tính từ 0h00:00
-  return TimeLog.find({
-    staffID: staff._id,
-    startedAt: {
-      $gte: dateS,
-    },
-    endedAt: {
-      $lte: dateE,
-    }
-  });
+  let data = await TimeLog.find(
+    // staffId: staff._id,
+    // startedAt: {
+    //   $gte: dateS,
+    // },
+    // endedAt: {
+    //   $lte: dateE, //và giá trị rỗng
+    // },
+
+    { staffId: staff._id, startedAt: {$gte: dateS}, $or: [ {endedAt: {$lte: dateE}}, { $exists: false } ] },
+        
+  );
+  console.log(JSON.stringify(data));
+  return data;
 };
 
 const timeLogOfDay = async (staff, date) => {
@@ -115,9 +127,10 @@ module.exports = {
   startWorking,
   stopWorking,
   todayTimeLog,
-  leaves,
+  getTimeLog,
   timeLogOfMonth,
   timeLogOfDay,
+  leaves,
   getLeaveOfDay,
   getLeaveOfMonth,
 };

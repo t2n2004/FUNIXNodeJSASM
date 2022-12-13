@@ -1,6 +1,5 @@
 const moment = require('moment');
 const Staff = require('../models/staff');
-const TimeLog = require('../models/time-log');
 
 exports.getStaff = (req, res, next) => {
   const staffId = req.user.staffId;
@@ -37,7 +36,7 @@ exports.getEditImageUrl = (req, res, next) => {
 };
 
 exports.postEditImageUrl = (req, res, next) => {
-    const staffId = req.body.staffId;
+    const staffId = req.user.staffId;
     const updatedImageUrl = req.body.imageUrl;
     Staff.findById(staffId)
     .then(staff => {
