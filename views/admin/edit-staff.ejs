@@ -1,4 +1,13 @@
 <%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#doB" ).datepicker();
+  } );
+  </script>
 </head>
 
 <body>
@@ -12,7 +21,7 @@
             </div>
             <div class="form-control">
                 <label for="doB">doB</label>
-                <input type="date" name="doB" id="doB" value="<% if (editing) { %><%= staff.doB %><% } %>">
+                <input type="date" name="doB" id="doB" value="<% if (editing) { %><%= staff.doB.toLocaleDateString() %><% } %>">
             </div>
             <div class="form-control">
                 <label for="salaryScale">Salary Scale</label>
@@ -20,7 +29,7 @@
             </div>
             <div class="form-control">
                 <label for="startDate">Start Date</label>
-                <input type="date" name="startDate" id="startDate" value="<% if (editing) { %><%= staff.startDate %><% } %>">
+                <input type="date" name="startDate" id="startDate" value="<% if (editing) { %><%= staff.startDate.toLocaleDateString() %><% } %>">
             </div>
             <div class="form-control">
                 <label for="department">Department</label>

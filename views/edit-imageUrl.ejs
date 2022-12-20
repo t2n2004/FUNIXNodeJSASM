@@ -11,8 +11,8 @@
                 <input type="text" name="name" id="name" value="<%= staff.name %>" disabled>
             </div>
             <div class="form-control">
-                <label for="doB">doB <%= staff.doB  %> </label>
-                <input type="date" name="doB" id="doB" value="<%= staff.doB  %>" disabled>
+                <label for="doB">doB </label>
+                <input name="doB" id="doB" value="<%= staff.doB.toLocaleDateString()  %>" disabled>
             </div>
             <div class="form-control">
                 <label for="salaryScale">Salary Scale</label>
@@ -20,7 +20,7 @@
             </div>
             <div class="form-control">
                 <label for="startDate">Start Date</label>
-                <input type="date" name="startDate" id="startDate" value="moment(<%= staff.startDate %>).format('h:mm a')" disabled>
+                <input name="startDate" id="startDate" value="<%= staff.startDate.toLocaleDateString() %>" disabled>
             </div>
             <div class="form-control">
                 <label for="department">Department</label>
