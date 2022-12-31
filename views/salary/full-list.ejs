@@ -5,6 +5,25 @@
 <body>
   <%- include('../includes/navigations.ejs') %>
 
+  <form class="product-form" method="POST">
+    <div class="form-control">
+      <label for="category">Choose category</label>
+      <select class="form-select" id="category" name="category">
+        <option value="workplace">Workplace</option>
+        <option value="startedAt">Start date</option>
+        <option value="endedAt">End date</option>      
+      </select>
+    </div>
+
+    <div class="form-control">
+        <label for="keyword">Enter your keyword</label>
+        <input type="text" name="keyword" id="keyword">
+    </div>
+    
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <button class="btn" type="submit">Apply</button>
+  </form>
+
     <h1>This is Full List of TimeLog</h1>
     <% if (data) { %>
       <div>

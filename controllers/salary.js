@@ -135,10 +135,29 @@ exports.fullList = async (req, res, next) => {
     currentDate = moment(currentDate).add(1, 'day').format('YYYY-MM-DD');
   }
 
+  console.log('data', JSON.stringify(data));
+
+  //filter
+  let dataFilter = [];
+  const category = req.body.category ;
+  const keyword = req.body.keyword ;
+  console.log(category);
+  console.log(keyword);
+
+  if (category && keyword) { 
+    dataFilter = data.filter((log) => log.dayLogs.workplace == "Home" );
+
+  } else {
+    dataFilter = [...data];
+  }
+
+
   res.render('salary/full-list', {
     pageTitle: 'TimeLog Full List',
     path: '/staff/salary/full-list',
-    data: data
+    category: category,
+    keyword: keyword,
+    data: dataFilter,
   });
 
 };
@@ -207,3 +226,4 @@ exports.salary = async (req, res, next) => {
     year: year
   });
 };
+
